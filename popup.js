@@ -50,9 +50,9 @@ start.addEventListener("click", () => {
     chrome.tabs.query({ currentWindow: true }, (tabs) => {
       tabs.forEach((tab) => {
         // refresh each tab bypassing the cache
-        // chrome.tabs.reload(tab.id, { bypassCache: true });
+        chrome.tabs.reload(tab.id, { bypassCache: true });
         // go to the same url everytime
-        chrome.tabs.update(tab.id, { url: tab.url });
+        // chrome.tabs.update(tab.id, { url: tab.url });
       });
     });
   }, 25000);
