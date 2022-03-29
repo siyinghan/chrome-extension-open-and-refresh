@@ -1,6 +1,6 @@
 # Change Log
 
-### 1.1.1
+### 1.0.1 (2022-03-29)
 
 - Change button style
 - Use encodeURI instead of copying all URLs

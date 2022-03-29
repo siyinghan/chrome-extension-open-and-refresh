@@ -1,5 +1,6 @@
 const refreshInteval = 25;
 let timer = null;
+let countdown = null;
 
 const start = document.querySelector("#start");
 const stop = document.querySelector("#stop");
@@ -23,6 +24,18 @@ start.addEventListener("click", () => {
     }
   });
 
+  let time = refreshInteval;
+  // show countdown once
+  countdown = setInterval(() => {
+    if (time === 0) {
+      clearInterval(countdown);
+      time = refreshInteval;
+    } else {
+      text.innerHTML = time - 1 + "s to refresh";
+      time--;
+    }
+  }, 1000);
+
   timer = setInterval(() => {
     // query all tabs in the current window
     chrome.tabs.query({ currentWindow: true }, (tabs) => {
@@ -31,10 +44,9 @@ start.addEventListener("click", () => {
         chrome.tabs.reload(tab.id, { bypassCache: true });
       });
     });
-    // 倒计时
-    let time = refreshInteval;
-    const countdown = setInterval(() => {
-      if (time === 0) {
+    // countdown
+    countdown = setInterval(() => {
+      if (time === 0 || !timer) {
         clearInterval(countdown);
         time = refreshInteval;
       } else {
@@ -43,11 +55,6 @@ start.addEventListener("click", () => {
       }
     }, 1000);
   }, refreshInteval * 1000);
-});
-
-stop.addEventListener("click", () => {
-  clearInterval(timer);
-  text.innerHTML = "stop refreshing";
 });
 
 // remove all searching tabs
