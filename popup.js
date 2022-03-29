@@ -1,4 +1,5 @@
 const refreshInteval = 25;
+let timer = null;
 
 const start = document.querySelector("#start");
 const stop = document.querySelector("#stop");
@@ -10,7 +11,6 @@ chrome.storage.sync.get("urls", async ({ urls }) => {
   usedURLs = await urls;
 });
 
-let timer = null;
 start.addEventListener("click", () => {
   chrome.tabs.query({ currentWindow: true }, (tabs) => {
     // text.innerHTML = "refreshing";
