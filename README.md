@@ -7,6 +7,7 @@
 
 ### TODO
 
+- Interval run immediately
 - Input refresh interval.
 - Input search contents.
 - Make the text better looking.

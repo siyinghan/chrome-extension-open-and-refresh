@@ -4,6 +4,7 @@
 
 - Change button style
 - Use encodeURI instead of copying all URLs
+- Display countdown
 
 ### 1.0.0 (2022-03-26)
 

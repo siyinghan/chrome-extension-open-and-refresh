@@ -1,3 +1,5 @@
+let time = 25;
+
 const start = document.querySelector("#start");
 const stop = document.querySelector("#stop");
 const clear = document.querySelector("#clear");
@@ -11,7 +13,7 @@ chrome.storage.sync.get("urls", async ({ urls }) => {
 let timer = null;
 start.addEventListener("click", () => {
   chrome.tabs.query({ currentWindow: true }, (tabs) => {
-    text.innerHTML = "refreshing";
+    // text.innerHTML = "refreshing";
     // don't create new tabs if they're already there
     if (tabs.length === 1) {
       // create new tabs (in the same window) for each url but don't go there (active false)
@@ -29,7 +31,17 @@ start.addEventListener("click", () => {
         chrome.tabs.reload(tab.id, { bypassCache: true });
       });
     });
-  }, 25000);
+    // 倒计时
+    const countdown = setInterval(() => {
+      if (time === 0) {
+        clearInterval(countdown);
+        time = 5;
+      } else {
+        text.innerHTML = "left " + (time - 1);
+        time--;
+      }
+    }, 1000);
+  }, time * 1000);
 });
 
 stop.addEventListener("click", () => {
