@@ -1,9 +1,11 @@
 # chrome-extension-open-and-refresh
 
+1. `⌘`+`Shift`+`n` to open an Incognito window.
+2. Click `Start` to create all needed searching pages and start regular refresh (will not create new pages if they're already there).
+3. Click `Clear` to close all searching pages if the pages go to the wrong URLs.
+
 ### TODO
 
-- Add **close** button to close all tabs when reaching wrong url. 
-  - Or go to real links (not `tab.url`) when refreshing.
-- Add CSS style
-- Change logo image.
-- Move refresh timer to `background.js` to keep running when popup page is closed.
+- Input refresh interval.
+- Input search contents.
+- Make the text better looking.

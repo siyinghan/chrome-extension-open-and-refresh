@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="button.css" />
+    <link rel="stylesheet" href="popup.css" />
+    <link
+      crossorigin="anonymous"
+      href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <button id="start">start</button>
-    <button id="stop">stop</button>
-    <div id="text"></div>
+    <div>
+      <button class="btn btn-primary" id="start">start</button>
+      <button class="btn btn-primary" id="clear">clear</button>
+    </div>
+    <div>
+      <div id="text">no refresh</div>
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>

@@ -1,64 +1,67 @@
+const refreshInteval = 25;
+let timer = null;
+let countdown = null;
+
 const start = document.querySelector("#start");
 const stop = document.querySelector("#stop");
+const clear = document.querySelector("#clear");
 const text = document.querySelector("#text");
 
-const baseURL = "https://s.weibo.com/weibo?q=";
-const links = new Map();
-// 龚俊代言
-links.set(0, baseURL + "%E9%BE%9A%E4%BF%8A%E4%BB%A3%E8%A8%80");
-// 龚俊坚持全开麦
-links.set(
-  1,
-  baseURL + "%E9%BE%9A%E4%BF%8A%E5%9D%9A%E6%8C%81%E5%85%A8%E5%BC%80%E9%BA%A6"
-);
-// 龚俊粉丝
-links.set(2, baseURL + "%E9%BE%9A%E4%BF%8A%E7%B2%89%E4%B8%9D");
-// 龚俊壁纸
-links.set(3, baseURL + "%E9%BE%9A%E4%BF%8A%E5%A3%81%E7%BA%B8");
-// 龚俊温客行
-links.set(4, baseURL + "%E9%BE%9A%E4%BF%8A%E6%B8%A9%E5%AE%A2%E8%A1%8C");
-// 龚俊的浪漫非你茉属
-links.set(
-  5,
-  baseURL +
-    "%E9%BE%9A%E4%BF%8A%E7%9A%84%E6%B5%AA%E6%BC%AB%E9%9D%9E%E4%BD%A0%E8%8C%89%E5%B1%9E"
-);
-// 龚俊杂志
-links.set(6, baseURL + "%E9%BE%9A%E4%BF%8A%E6%9D%82%E5%BF%97");
-// 龚俊表情包
-links.set(7, baseURL + "%E9%BE%9A%E4%BF%8A%E8%A1%A8%E6%83%85%E5%8C%85");
-// 龚俊lv
-links.set(8, baseURL + "%E9%BE%9A%E4%BF%8Alv");
-
-let timer = null;
+let usedURLs = null;
+chrome.storage.sync.get("urls", async ({ urls }) => {
+  usedURLs = await urls;
+});
 
 start.addEventListener("click", () => {
   chrome.tabs.query({ currentWindow: true }, (tabs) => {
-    text.innerHTML = "refreshing";
-
+    // text.innerHTML = "refreshing";
     // don't create new tabs if they're already there
     if (tabs.length === 1) {
       // create new tabs (in the same window) for each url but don't go there (active false)
-      for (let i = 0; i < links.size; i++) {
-        chrome.tabs.create({ url: links.get(i), active: false });
+      for (let i = 0; i < usedURLs.length; i++) {
+        chrome.tabs.create({ url: usedURLs[i], active: false });
       }
     }
   });
+
+  let time = refreshInteval;
+  // show countdown once
+  countdown = setInterval(() => {
+    if (time === 0) {
+      clearInterval(countdown);
+      time = refreshInteval;
+    } else {
+      text.innerHTML = time - 1 + "s to refresh";
+      time--;
+    }
+  }, 1000);
 
   timer = setInterval(() => {
     // query all tabs in the current window
     chrome.tabs.query({ currentWindow: true }, (tabs) => {
       tabs.forEach((tab) => {
         // refresh each tab bypassing the cache
-        // chrome.tabs.reload(tab.id, { bypassCache: true });
-        // go to the same url everytime
-        chrome.tabs.update(tab.id, { url: tab.url });
+        chrome.tabs.reload(tab.id, { bypassCache: true });
       });
     });
-  }, 25000);
+    // countdown
+    countdown = setInterval(() => {
+      if (time === 0 || !timer) {
+        clearInterval(countdown);
+        time = refreshInteval;
+      } else {
+        text.innerHTML = "left " + (time - 1);
+        time--;
+      }
+    }, 1000);
+  }, refreshInteval * 1000);
 });
 
-stop.addEventListener("click", () => {
-  clearInterval(timer);
-  text.innerHTML = "stop refreshing";
+// remove all searching tabs
+clear.addEventListener("click", () => {
+  chrome.tabs.query({ currentWindow: true }, (tabs) => {
+    for (let i = 1; i < tabs.length; i++) {
+      chrome.tabs.remove(tabs[i].id);
+    }
+  });
 });
