@@ -1,4 +1,4 @@
-let time = 25;
+const refreshInteval = 25;
 
 const start = document.querySelector("#start");
 const stop = document.querySelector("#stop");
@@ -32,16 +32,17 @@ start.addEventListener("click", () => {
       });
     });
     // 倒计时
+    let time = refreshInteval;
     const countdown = setInterval(() => {
       if (time === 0) {
         clearInterval(countdown);
-        time = 5;
+        time = refreshInteval;
       } else {
         text.innerHTML = "left " + (time - 1);
         time--;
       }
     }, 1000);
-  }, time * 1000);
+  }, refreshInteval * 1000);
 });
 
 stop.addEventListener("click", () => {
