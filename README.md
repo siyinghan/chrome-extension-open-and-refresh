@@ -1,11 +1,9 @@
 # chrome-extension-open-and-refresh
 
 1. `⌘`+`Shift`+`n` to open an Incognito window.
-2. Click `Start` to create all needed searching pages and start regular refresh (will not create new pages if they're already there).
-3. Click `Clear` to close all searching pages if the pages go to the wrong URLs.
+2. Click `start` to create all needed searching pages and start to refresh regularly (will not create new pages if they're already there).
+3. Click `close` to close all searching pages if they are redirected to the login page.
 
-### TODO
+----
 
-- Input refresh interval.
-- Input search contents.
-- Make the text better looking.
+All URLs that need to be refreshed in hard-coded in `background.js`.
