@@ -3,8 +3,7 @@ let timer = null;
 let countdown = null;
 
 const start = document.querySelector("#start");
-const stop = document.querySelector("#stop");
-const clear = document.querySelector("#clear");
+const close = document.querySelector("#close");
 const text = document.querySelector("#text");
 
 let usedURLs = null;
@@ -58,7 +57,7 @@ start.addEventListener("click", () => {
 });
 
 // remove all searching tabs
-clear.addEventListener("click", () => {
+close.addEventListener("click", () => {
   chrome.tabs.query({ currentWindow: true }, (tabs) => {
     for (let i = 1; i < tabs.length; i++) {
       chrome.tabs.remove(tabs[i].id);
