@@ -1,6 +1,6 @@
 body {
-  width: 150px;
-  height: 100px;
+  width: 120px;
+  height: 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,4 +11,6 @@ body {
 
 #text {
   padding-top: 10px;
+  font-size: 14px;
+  color: grey;
 }

@@ -12,6 +12,7 @@ chrome.storage.sync.get("urls", async ({ urls }) => {
 });
 
 start.addEventListener("click", () => {
+  start.disabled = true;
   chrome.tabs.query({ currentWindow: true }, (tabs) => {
     // text.innerHTML = "refreshing";
     // don't create new tabs if they're already there
