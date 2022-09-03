@@ -1,6 +1,9 @@
 const baseURL = "https://s.weibo.com/weibo?q=";
 
 const urls = [
+  baseURL + encodeURI("龚俊 狐妖"),
+  baseURL + encodeURI("龚俊综艺"),
+  baseURL + encodeURI("龚俊代言"),
   baseURL + encodeURI("龚俊粉丝"),
   baseURL + encodeURI("龚俊超话"),
   baseURL + encodeURI("龚俊工作室"),
