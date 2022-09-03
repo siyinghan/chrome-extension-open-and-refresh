@@ -12,6 +12,7 @@ const urls = [
   baseURL + encodeURI("龚俊壁纸"),
   baseURL + encodeURI("龚俊工作室"),
   baseURL + encodeURI("龚俊电视剧"),
+  baseURL + encodeURI("龚俊东方月初"),
   baseURL + encodeURI("龚俊 狐妖小红娘月红篇"),
   baseURL + encodeURI("龚俊徐斯"),
   baseURL + encodeURI("龚俊我要逆风去"),
